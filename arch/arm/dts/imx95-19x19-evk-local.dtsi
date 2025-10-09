@@ -15,7 +15,7 @@
 	};
 
 	chosen {
-		bootargs = "console=ttyLP0,115200 earlycon";
+		bootargs = "console=ttyLP5,115200 earlycon";
 	};
 
 	reg_usb_vbus: regulator-vbus {

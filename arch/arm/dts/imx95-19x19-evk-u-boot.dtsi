@@ -26,6 +26,10 @@
 	bootph-pre-ram;
 };
 
+&lpuart6 {
+	bootph-pre-ram;
+};
+
 &reg_usdhc2_vmmc {
 	bootph-pre-ram;
 };
@@ -106,10 +110,12 @@
 	label = "i2c5_io";
 };
 
+/*
 &i2c6_pcal6416 {
 	compatible = "ti,tca6416";
 	label = "i2c6_io";
 };
+*/
 
 &flexspi1 {
 	bootph-pre-ram;
