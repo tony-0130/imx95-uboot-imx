@@ -43,7 +43,7 @@ static void setup_iomux_swrst(void) {
 	}
 
 	/* assert the SW_RESET_OUT */
-	dm_gpio_set_dir_flags(&desc, GPIO_IS_OUT | GPIO_IS_OUT_ACTIVE | GPIO_ACTIVE_LOW);
+	dm_gpio_set_dir_flags(&desc, GPIOD_IS_OUT | GPIOD_IS_OUT_ACTIVE | GPIOD_ACTIVE_LOW);
 	udelay(10000);
 	dm_gpio_set_value(&desc, 0); /* deassert the SW_RESET_OUT */
 	udelay(80000);
