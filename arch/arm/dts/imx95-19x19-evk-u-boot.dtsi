@@ -26,12 +26,6 @@
 	bootph-pre-ram;
 };
 
-&lpuart6 {
-	clocks = <&scmi_clk IMX95_CLK_LPUART6>, <&scmi_clk IMX95_CLK_LPUART6>;
-	clock-names = "ipg", "per";
-	bootph-pre-ram;
-};
-
 &reg_usdhc2_vmmc {
 	bootph-pre-ram;
 };
@@ -49,10 +43,6 @@
 };
 
 &pinctrl_uart1 {
-	bootph-pre-ram;
-};
-
-&pinctrl_uart6 {
 	bootph-pre-ram;
 };
 

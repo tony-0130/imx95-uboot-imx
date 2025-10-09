@@ -4,5 +4,42 @@
  */
 
 #include "../dts/upstream/src/arm64/freescale/imx95-19x19-evk.dts"
-#include "imx95-u-boot.dtsi"
-#include "imx95-19x19-evk-local.dtsi"
+#include "imx95-19x19-evk-u-boot.dtsi"
+
+/ {
+	chosen {
+		bootargs = "console=ttyLP5,115200 earlycon";
+		stdout-path = &lpuart6;
+	};
+};
+
+&lpi2c6 {
+	/delete-node/ gpio@21;
+};
+
+&lpuart6 {
+	clocks = <&scmi_clk IMX95_CLK_LPUART6>, <&scmi_clk IMX95_CLK_LPUART6>;
+	clock-names = "ipg", "per";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart6>;
+	status = "okay";
+};
+
+&scmi_iomuxc {
+	/delete-node/ pcal6416grp;
+
+	pinctrl_uart6: uart6grp {
+		fsl,pins = <
+			IMX95_PAD_GPIO_IO04__LPUART6_TX		0x31e
+			IMX95_PAD_GPIO_IO05__LPUART6_RX		0x31e
+		>;
+	};
+};
+
+&lpuart6 {
+	bootph-pre-ram;
+};
+
+&pinctrl_uart6 {
+	bootph-pre-ram;
+};
