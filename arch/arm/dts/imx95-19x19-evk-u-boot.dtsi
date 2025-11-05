@@ -116,18 +116,18 @@
 &flexspi1 {
 	bootph-pre-ram;
 
-	flash@0{
+	/*flash@0{
 		bootph-pre-ram;
-	};
+	};*/
 };
 
-&pinctrl_flexspi1 {
+/*&pinctrl_flexspi1 {
 	bootph-pre-ram;
-};
+};*/
 
-&pinctrl_flexspi1_reset {
+/*&pinctrl_flexspi1_reset {
 	bootph-pre-ram;
-};
+};*/
 
 &dispmix_csr {
 	/delete-property/ assigned-clocks;
