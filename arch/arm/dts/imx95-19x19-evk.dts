@@ -1,25 +1,53 @@
-// SPDX-License-Identifier: GPL-2.0+
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 /*
- * Copyright 2025 NXP
+ * Copyright 2023-2024 NXP
  */
 
+#include "../dts/upstream/src/arm64/freescale/imx95-19x19-evk.dts"
 #include "imx95-u-boot.dtsi"
 #include "imx95-19x19-evk-local.dtsi"
 
-#if 0
+&flexspi1 {
+	/delete-node/ flash@0;
+}
+
+/delete-node/ &pinctrl_flexspi1;
+/delete-node/ &pinctrl_flexspi1_reset;
+
+/ {
+	aliases {
+		spi0 = &flexspi1;
+	};
+}
+
+&flexspi1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_flexspi1>;
+	assigned-clock-rates = <133000000>;
+	status = "okay";
+
+	flash0: w25q64jwssiq@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+		spi-max-frequency = <133000000>; // 133 MHz
+		spi-tx-bus-width = <4>;
+		spi-rx-bus-width = <4>;
+	};
+};
 
 &scmi_iomuxc {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_hog>;
 
-	pinctrl_hog: hoggrp {
-		bootph-pre-ram;
-
+	pinctrl_flexspi1: flexspi1grp {
 		fsl,pins = <
-			IMX95_PAD_XSPI1_SS1_B__GPIO5_IO_BIT11			0x3fe
-			IMX95_PAD_GPIO_IO12__TPM3_CH2           0x51e
-			IMX95_PAD_CCM_CLKO1__GPIO3_IO_BIT26			0x3fe
-			IMX95_PAD_CCM_CLKO2__GPIO3_IO_BIT27			0x3fe
+			IMX95_PAD_XSPI1_SS0_B__FLEXSPI1_A_SS0_B		0x3fe
+			IMX95_PAD_XSPI1_SCLK__FLEXSPI1_A_SCLK		0x3fe
+			IMX95_PAD_XSPI1_DATA0__FLEXSPI1_A_DATA_BIT0	0x3fe
+			IMX95_PAD_XSPI1_DATA1__FLEXSPI1_A_DATA_BIT1	0x3fe
+			IMX95_PAD_XSPI1_DATA2__FLEXSPI1_A_DATA_BIT2	0x3fe
+			IMX95_PAD_XSPI1_DATA3__FLEXSPI1_A_DATA_BIT3	0x3fe
 		>;
 	};
 };
@@ -28,23 +56,15 @@
 	bootph-pre-ram;
 };
 
+&pinctrl_uart1 {
+	bootph-pre-ram;
+};
+
 &reg_usdhc2_vmmc {
 	bootph-pre-ram;
 };
 
 &usdhc1 {
-	bootph-pre-ram;
-};
-
-&usdhc2 {
-	bootph-pre-ram;
-};
-
-&wdog3 {
-	status = "disabled";
-};
-
-&pinctrl_uart1 {
 	bootph-pre-ram;
 };
 
@@ -57,6 +77,10 @@
 };
 
 &pinctrl_usdhc1_200mhz {
+	bootph-pre-ram;
+};
+
+&usdhc2 {
 	bootph-pre-ram;
 };
 
@@ -80,13 +104,17 @@
 	bootph-pre-ram;
 };
 
+&wdog3 {
+	status = "disabled";
+};
+
 &usb2 {
 	compatible = "fsl,imx8mm-usb", "fsl,imx7d-usb";
-	/delete-property/power-domains;
+	/delete-property/ power-domains;
 };
 
 &usb3 {
-	/delete-property/power-domains;
+	/delete-property/ power-domains;
 };
 
 &usb3_dwc3 {
@@ -108,24 +136,21 @@
 	label = "i2c5_io";
 };
 
-&i2c6_pcal6416 {
-	compatible = "ti,tca6416";
-	label = "i2c6_io";
+/delete-node/ &i2c6_pcal6416;
+
+&lpi2c6 {
+	/delete-node/ gpio@21;	
 };
 
 &flexspi1 {
 	bootph-pre-ram;
 
-	flash@0{
+	flash@0 {
 		bootph-pre-ram;
 	};
 };
 
 &pinctrl_flexspi1 {
-	bootph-pre-ram;
-};
-
-&pinctrl_flexspi1_reset {
 	bootph-pre-ram;
 };
 
@@ -139,5 +164,3 @@
 	assigned-clocks = <&scmi_clk IMX95_CLK_MIPIPHYPLLBYPASS>;
 	assigned-clock-parents = <&scmi_clk IMX95_CLK_VIDEOPLL1>;
 };
-
-#endif
