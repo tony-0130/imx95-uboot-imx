@@ -23,7 +23,7 @@
 &flexspi1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexspi1>;
-	assigned-clock-rates = <60000000>;
+	assigned-clock-rates = <50000000>; // 50 MHz
 	status = "okay";
 
 	flash0: w25q64jwssiq@0 {
@@ -31,7 +31,7 @@
 		reg = <0>;
 		#address-cells = <1>;
 		#size-cells = <1>;
-		spi-max-frequency = <60000000>; // 60 MHz
+		spi-max-frequency = <50000000>; // 50 MHz
 		spi-tx-bus-width = <4>;
 		spi-rx-bus-width = <4>;
 	};
