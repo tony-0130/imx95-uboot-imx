@@ -47,11 +47,24 @@
 		spi-max-frequency = <50000000>; // 50 MHz
 		spi-tx-bus-width = <4>;
 		spi-rx-bus-width = <4>;
+		status = "okay";
 	};
 };
 
 &scmi_iomuxc {
 	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_hog>;
+
+	pinctrl_hog: hoggrp {
+		bootph-pre-ram;
+
+		fsl,pins = <
+			IMX95_PAD_XSPI1_SS1_B__GPIO5_IO_BIT11		0x3fe
+			IMX95_PAD_GPIO_IO12__TPM3_CH2				0x51e
+			IMX95_PAD_CCM_CLKO1__GPIO3_IO_BIT26			0x3fe
+			IMX95_PAD_CCM_CLKO2__GPIO3_IO_BIT27			0x3fe
+		>;
+	};
 
 	pinctrl_flexspi1: flexspi1grp {
 		bootph-pre-ram;
