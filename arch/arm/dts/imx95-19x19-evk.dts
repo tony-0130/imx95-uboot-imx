@@ -32,12 +32,14 @@
 };
 
 &flexspi1 {
+	bootph-pre-ram;
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexspi1>;
 	assigned-clock-rates = <50000000>; // 50 MHz
 	status = "okay";
 
-	flash0: w25q64jwssiq@0 {
+	flash0: flash@0 {
+		bootph-pre-ram;
 		compatible = "jedec,spi-nor";
 		reg = <0>;
 		#address-cells = <1>;
@@ -52,6 +54,7 @@
 	pinctrl-names = "default";
 
 	pinctrl_flexspi1: flexspi1grp {
+		bootph-pre-ram;
 		fsl,pins = <
 			IMX95_PAD_XSPI1_SS0_B__FLEXSPI1_A_SS0_B		0x3fe
 			IMX95_PAD_XSPI1_SCLK__FLEXSPI1_A_SCLK		0x3fe
@@ -160,18 +163,6 @@
 
 &lpi2c6 {
 	/delete-node/ gpio@21;	
-};
-
-&flexspi1 {
-	bootph-pre-ram;
-
-	flash@0 {
-		bootph-pre-ram;
-	};
-};
-
-&pinctrl_flexspi1 {
-	bootph-pre-ram;
 };
 
 &dispmix_csr {
