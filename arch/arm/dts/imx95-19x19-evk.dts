@@ -17,6 +17,17 @@
 / {
 	aliases {
 		spi0 = &flexspi1;
+		usb0 = &usb3_dwc3;
+		usb1 = &usb2;
+		usb_gadget1 = &usbg2;
+	};
+
+	usbg2: usbg2 {
+		boot-pre-ram;
+		compatible = "fsl,imx27-usb-gadget";
+		dr_mode = "peripheral";
+		chipidea,usb = <&usb2>;
+		status = "okay";
 	};
 };
 
@@ -109,8 +120,17 @@
 };
 
 &usb2 {
+	bootph-pre-ram;
 	compatible = "fsl,imx8mm-usb", "fsl,imx7d-usb";
 	/delete-property/ power-domains;
+};
+
+&usbmisc {
+	bootph-pre-ram;
+};
+
+&usbphynop {
+	bootph-pre-ram;
 };
 
 &usb3 {
